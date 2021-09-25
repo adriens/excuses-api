@@ -23,14 +23,14 @@ public class ExcusesController {
     
     @Autowired
     private ExcusesService excusesService;
-    
+  
     @GetMapping("/categories")
     public List<String> getCategories() throws Exception {
         return excusesService.getCategories();
     }
     
     @GetMapping(value = "/excuses/{excuseId}")
-    public Excuse getExcuse(@PathVariable int excuseId) throws Exception {
+    public Excuse getExcuses(@PathVariable int excuseId) throws Exception {
         return excusesService.getById(excuseId);
     }
     
@@ -48,7 +48,14 @@ public class ExcusesController {
         
     }
     
-    @GetMapping(value = "/excuses/rand")
+    //
+    /*@GetMapping(value = "/excuses/{category}")
+    public List<Excuse> getExcuses(@PathVariable String category) throws Exception {
+        return excusesService.getByCat(category);
+    }
+*/
+    
+    @GetMapping(value = "/random")
     public Excuse getExcusesRandomly(
             @RequestParam(value = "maxLength", defaultValue = "100") int maxLength,
             @RequestParam(value = "category", defaultValue = "") String category
@@ -61,9 +68,18 @@ public class ExcusesController {
         }
         
     }
-    //
-    @GetMapping(value = "/excuses/{category}")
-    public List<Excuse> getExcuses(@PathVariable String category) throws Exception {
-        return excusesService.getByCat(category);
+    
+    @GetMapping(value = "/random/{category}")
+    public Excuse getExcuseRandomlyByCategory(@PathVariable String category,
+            @RequestParam(value = "maxLength", defaultValue = "100") int maxLength
+    ) throws Exception {
+        if(category.length() == 0){
+            return excusesService.pickRandomly(maxLength);
+        }
+        else{
+            return excusesService.pickRandomly(category, maxLength);
+        }
+        
     }
+    
 }
