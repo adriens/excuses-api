@@ -7,7 +7,6 @@ package com.github.adriens.excusesapi.controller;
 
 import com.github.adriens.excuses.sdk.Excuse;
 import com.github.adriens.excusesapi.service.ExcusesService;
-import com.sun.org.glassfish.gmbal.ParameterNames;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
